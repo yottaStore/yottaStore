@@ -7,16 +7,16 @@ which means 2^28 blocks.
 If we were to implement a naif hash table, we would face the following
 challenges:
 
-- Lots of wasted space
+- Poorly utilized space
 - Needs wear leveling
-- Needs arbitrary size
+- Values bigger than a block
 - Needs to handle collisions
 
 ## Pointers array
 
-When we hash the key, we obtain a hash value which allow us to get a key 
-representing the index of an array. The array at the index will contain 
-either the value of the key or a pointer to the value. A possible pointer could be:
+When we hash the key, we obtain a value which represents the index of an array. 
+The array at the index will contain either the value of the key or a 
+pointer to the value:
 
 - 512 bits to reference the key hash
 - 32 bits to reference the first block containing the value
@@ -35,7 +35,7 @@ Each block will contain up to 24 pointers, still less than the maximum of 32 poi
 and everytime a record is created or updated, we will rotate the block written.
 
 A record key is created or updated less often than the value, so this approach should
-provide optimal performance and endurance compared. We now need a way to efficiently
+provide optimal performance and endurance. We now need a way to efficiently
 allocate memory pointers.
 
 ## Memory allocation
@@ -57,7 +57,7 @@ our free space will look like:
 
 `[1024: 2^30-1024]` written at block 0 and 512.
 
-Which means that the first free block is block 1024, and we have 2^30-1024 free blocks.
+Which means that the first free block is 1024, and we have 2^30-1024 free blocks.
 When we want to save a new key, we can read the the first 1024 blocks, detect the most
 recent state, and write the new state with a compare and swap. The atomicity of 
 the compare and swap allow us concurrency without locks, for very high performance.
