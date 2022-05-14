@@ -18,16 +18,17 @@ node is responsible for it. A key is of the form:
 
 `account/resource/resourceType/primaryKey/sortKey`
 
-- `account` permits to allow multi-tenancy.
-- `resourceType` can be either `rnd` for random access keys, backed by SSDs, 
-or `lnr` for queues, backed by HDDs.
+- `account` to allow multi-tenancy on the same machine. 
 - `resource` can be either the table name or the queue name
+- `resourceType` can be either `rnd` for random access keys, backed by SSDs,
+or `lnr` for queues, backed by HDDs.                                        
 - `primaryKey` represents the key to which a value is associated. 
 - `sortKey` is optional and is not hashed, like in dynamoDB. 
 Typically used for versioning, it permits to store different values of 
 the same primary key together.
 
-The hash used is `SHA-512`, hence the 512 bit size of the pointer.  
+The hash used is `SHA-512`, hence the 512 bit size of the pointer. To determine which 
+node is responsible for the key, we use [rendezvous hashing]()
 
 ## The memory
 
@@ -43,7 +44,8 @@ The large word size is due to the nature of the backing memory. For random
 access is the SSD sector size which is 4 kb, even if a value is smaller than 
 that the controller will still use a 4 kb sector, so it's better to optimize for that.
 
-In the case of linear memory, which is typically an [SMR HDDs](https://en.wikipedia.org/wiki/Shingled_magnetic_recording) 
+In the case of linear memory, which is typically an 
+[SMR HDDs](https://en.wikipedia.org/wiki/Shingled_magnetic_recording) 
 the word size is much bigger, up to 32 mb, to optimize for the 
 high linear performance characteristics of hard disks. Queues
 can be temporary stored in random memory before being aggregated
