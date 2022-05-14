@@ -1,14 +1,16 @@
 # Introduction
 Yotta Store is a storage system aiming at linear scalability up to the yotta byte range. 
-The goal is to have two orders of magnitude more throughput than DynamoDB, dollar per dollar, while maintaining 
-a sub-ms latency.
+The goal is to have two orders of magnitude more throughput than DynamoDB, 
+dollar per dollar, while maintaining a sub-ms latency.
 
-To solve this challenge, we will build a distributed state machine with a 512 bit pointer size and 
-4 kilobytes word size. More on the design [here](docs/README.md).
+To solve this challenge, we will build a distributed machine with a 512 bit pointer size and 
+4 kilobytes word size. We try to design a system which can exploit the capabilities of 
+modern hardware and software, like NVMe disks or the linux kernel.
+More on the design [here](docs/README.md).
 
 ## Main features
 
-- Linear scalability, up to 10^9 nodes and 10^4 yotta bytes of addressable space.
+- Linear scalability, up to 10^9 nodes and 10 yotta bytes of addressable space.
 - Anti fragility, the multi tenant setup increase reliability and availability with load.
 - Strong consistency and availability guarantees.
 - Cheap transactions and indexes, at around `o(n)`.
