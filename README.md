@@ -27,7 +27,7 @@ Yotta Store does not create any new technique, but uses existing ones in a novel
 | Highly available writes          | Compare and swap atomics, version vectors, <br/>conflict-free replicated data types | hhh                                                                                                                       |
 | Transactions                     | Warp algorithm                                                                      | hhh                                                                                                                       |
 | Indexes, queries across keys     | Concurrent linked lists, partitioned indexes                                        | Indices are lazily built by subscribing to key changes                                                                    |
-| Membership and failure detection | Rendezvous gossip                                                                   | Thanks to rendezvous hashing and merkle trees the expected cost is `o(loglog(n))`                                         |
+| Membership and failure detection | Rendezvous gossip                                                                   | Thanks to rendezvous hashing and merkle trees the expected cost is `o(log(n))` deterministically.                         |
 
 
 ## Inspirations
