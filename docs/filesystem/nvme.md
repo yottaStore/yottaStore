@@ -26,9 +26,10 @@ of basic operation like:
 
 On top of that we also have `fused operations`, which allow us to combine
 a `compare` and `write` operation in a single atomic command. This is 
-fundamental for our [instruction set](../architecture/instruction-set.md)
+fundamental for our [instruction set](../architecture/instruction-set.md).
 
-Discarding a filesystem gives us some new responsibilities:
+Discarding a filesystem gives us a lot of perfromance but also
+some new responsibilities:
 
 - Detect and interface with the NVMe device
 - Define a disk format
@@ -63,10 +64,10 @@ The disk format is a set of metadata that describes the disk layout, and
 allow us to parse the contents of the disk. It's especially important
 that this data is not corrupted, as it would make the disk unusable.
 
-It's easy to imagine that a block of 4kb is more than enough to 
-store the metadata, but we will reserve 128 blocks instead, and store
+ We start by reserving the first 128 blocks, and store
 the initial metadata at position 0 and 64, as copies. It's easy to 
-allocate 2 additional blocks, in case the metadata is bigger than 4kb.
+ imagine that a block of 4kb is more than enough to
+ store all the metadata, but eventually we can use 2 blocks instead.
 
 If for any reason the metadata needs to be updated, we will store the
 data in the next blocks, 1 and 65, again as copies. Once a few copies 
@@ -87,15 +88,19 @@ a binary format for the blocks. We can take for example `grpc` as a
 to store the data, and the next chunk is not in the same block.
 - We need a checksum to verify the integrity of the data.
 
-Read more here.
+Read more [here](blockFormat.md).
 
 ### Wear leveling
 
 The metadata chapter give us an idea of how wear leveling can be implemented. The
-application can decide to aggregate several writes in a single block, and then use
+application can decide to aggregate several locations in a single block, and then use
 the free space to provide wear leveling. Ideally we would like to have a mechanism
 to determine in advance which are the possible blocks, to submit the read to multiple
 blocks as a single command.
+
+**Example**: A is in block 0, B is in block 1. The system might decide to write
+(A, B) to block 0, and leave block 1 free. When an updates comes, we write 
+it to block 1 and vice versa.
 
 ### Trimming
 
@@ -107,7 +112,7 @@ from the metadata chapter. It seems we need a mechanism with the following prope
 - Be thread safe
 
 It seems like we need a non blocking garbage collector, which will be useful also 
-for other scopes. More information here.
+for other scopes like improving our wear leveling mechanism. More information [here](hashTable.md).
 
 ## Replication
 
@@ -136,4 +141,4 @@ for wear leveling, non blocking concurrency writes.
 
 The only thing we need is to store the metadata of the disk, with the list of chunks 
 allocated and to which queue. For that we can use an SSD like we did for the original metadata.
-More information [here]().
+More information [here](sata.md).

@@ -1,6 +1,5 @@
 # Documentation
 
-Here's a brief documentation of the design
 I hope that the reader that will bear with reading this, will then be able to fully understand the system, 
 and implement one himself if he decides so.
 

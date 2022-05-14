@@ -26,8 +26,8 @@ Yotta Store does not create any new technique, but uses existing ones in a novel
 | Partitioning and replication     | Rendezvous Hashing                                                                  | A generalization of consistent hashing, for agreeing k <br/>choices in a stable way and with minimal information exchange |
 | Highly available writes          | Compare and swap atomics, version vectors, <br/>conflict-free replicated data types | hhh                                                                                                                       |
 | Transactions                     | Warp algorithm                                                                      | hhh                                                                                                                       |
-| Indexes, queries across keys     | Concurrent linked lists, partitioned indices                                        | Indices are lazily built by subscribing to key changes                                                                    |
-| Membership and failure detection | Rendezvous gossip                                                                | Thanks to rendezvous hashing and merkle trees the expected cost is `o(loglog(n))`                                         |
+| Indexes, queries across keys     | Concurrent linked lists, partitioned indexes                                        | Indices are lazily built by subscribing to key changes                                                                    |
+| Membership and failure detection | Rendezvous gossip                                                                   | Thanks to rendezvous hashing and merkle trees the expected cost is `o(loglog(n))`                                         |
 
 
 ## Inspirations
