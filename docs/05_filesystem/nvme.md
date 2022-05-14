@@ -51,6 +51,8 @@ to the NVMe device, while fully residing in user land. This allow us
 to exploit the high concurrency of the device, by setting up multiple queues
 with high depth.
 
+nvme cli as fallback without queue or fused commands
+
 ## Disk format
 
 NVMe devices appears to Linux as a block device, which can be partitioned 
