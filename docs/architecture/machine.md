@@ -28,7 +28,7 @@ Typically used for versioning, it permits to store different values of
 the same primary key together.
 
 The hash used is `SHA-512`, hence the 512 bit size of the pointer. To determine which 
-node is responsible for the key, we use [rendezvous hashing]()
+node is responsible for the key, we use [rendezvous hashing](../partitioning/rendezvous.md).
 
 ## The memory
 
