@@ -1,0 +1,9 @@
+{
+  "name": "yottaStore",
+  "workspaces": [
+    "docs",
+    "infra",
+    "pkgs/*"
+  ],
+  "packageManager": "yarn@3.2.1"
+}
