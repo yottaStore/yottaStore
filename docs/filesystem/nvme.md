@@ -3,7 +3,7 @@
 It's possible to experiment with several different filesystem configurations,
 among the most common ones are:
 
-- **ext4**: Old, but reliable. 
+- **EXT4**: Old, but reliable. 
 - **BTRFS, NILFS**: Better suited for our case.
 - **NOATIME**: To improve performance.
 - **RAID**: to control replication and availability.
@@ -26,7 +26,7 @@ of basic operation like:
 
 On top of that we also have `fused operations`, which allow us to combine
 a `compare` and `write` operation in a single atomic command. This is 
-fundamental for our [instruction set](../architecture/instruction-set.md).
+fundamental for our [instruction set](../architecture/instructionSet.md).
 
 Discarding a filesystem gives us a lot of perfromance but also
 some new responsibilities:
@@ -56,7 +56,7 @@ with high depth.
 NVMe devices appears to Linux as a block device, which can be partitioned 
 in several **namespaces**, backed by a number of underlying blocks. For 
 simplicity of discussion, we will assume a namespace size of 1 TB, 
-which at 4kb per sector, is equivalent to 2^38 blocks.
+which at 4kb per sector, is equivalent to 2^28 blocks.
 
 ### Disk Metadata
 
@@ -81,7 +81,7 @@ block. The double copy is to provide corruption resilience.
 ### Block format
 
 Since we are dealing with a low level device, it's useful to define
-a binary format for the blocks. We can take for example `grpc` as a 
+a binary format for the blocks. We can take for example `Avro` as a 
  serialization format, maybe with a couple of addition:
 
 - We need a pointer to the next block, in case one block is not enough
@@ -93,14 +93,15 @@ Read more [here](blockFormat.md).
 ### Wear leveling
 
 The metadata chapter give us an idea of how wear leveling can be implemented. The
-application can decide to aggregate several locations in a single block, and then use
-the free space to provide wear leveling. Ideally we would like to have a mechanism
+application can decide to aggregate several blocks, and then rotate the writes
+to provide wear leveling. Ideally we would like to have a mechanism
 to determine in advance which are the possible blocks, to submit the read to multiple
 blocks as a single command.
 
 **Example**: A is in block 0, B is in block 1. The system might decide to write
 (A, B) to block 0, and leave block 1 free. When an updates comes, we write 
-it to block 1 and vice versa.
+it to block 1 and vice versa. Reading either A or B require to scan both 
+blocks to find the most recent data.
 
 ### Trimming
 

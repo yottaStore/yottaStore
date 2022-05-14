@@ -52,18 +52,18 @@ to define a natural hierarchy:
 - Nodes
 - Disks
 
-## Disk queues
-
 Which we can extend for performance reasons:
 
 - Namespaces
 - Disks Queues
 
-By ensuring that a key is deterministically assigned to a queue in 
+## Disk queues
+
+Ensuring that a key is deterministically assigned to a queue in 
 one of the replicas increase for free the consistency of the system:
 in case a weak read starts while a consistent write is still in progress,
-we will get for free the correct value, because the command will 
-not resolve in the queue until the flush of the write is done.
+we will get for free the correct value, because the NVMe command will 
+not resolve until the flush of the write is done.
 
 # Failure example
 
