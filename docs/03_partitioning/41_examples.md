@@ -1,6 +1,4 @@
-# 64 node example
-
-## Key addressing
+# Key addressing
 
 Let's say we have a 128 nodes spread across 2 regions and we want
 to know the position of a key: 
