@@ -13,6 +13,7 @@ Read more in the [docs](docs/README.md)
 
 - Linear scalability, up to 10^9 nodes and 10 yotta bytes of addressable space.
 - Anti fragility, the multi tenant setup increase reliability and availability with load.
+- Self optimizing, thanks to machine learning (insipration from sled)
 - Strong consistency guarantees, aiming at sub ms latency.
 - Cheap transactions and indexes, at around `o(n)`.
 - Storage decoupled from compute with a serverless architecture.
