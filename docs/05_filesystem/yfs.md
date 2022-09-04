@@ -50,9 +50,13 @@ Write a data stream to disk, for the given key. Takes care of using multiple sec
 If key exist, it gets rewritten. Compute node is responsible for merging existing data.
 If successful, record to WAL and return true.
 
+
+
 Options:
 - Compressed: signal that compute node compressed the data
 - Compact: if size is much less than sector, signal that compactification with other records is desired
+- Revert: possible to mark the write as revertable
+- Compare: verify existing state before writing, fail if mismatch
 - Flush: Make write strongly consistent
 
 ## Append
@@ -63,6 +67,8 @@ Useful for columnar records.
 Options:
 - compressed: signal that compute node compressed the data
 - compact: if size is much less than sector, signal that compactification with other records is desired
+- Revert: possible to mark the write as revertable
+- Compare: verify existing state before writing, fail if mismatch
 - Flush: Make append strongly consistent
 
 ## Delete
@@ -86,6 +92,10 @@ If not, perform a swap.
 Possible to be multi word, to support transactions.
 
 Return true or false.
+
+Optional: 
+
+Count failures through sliding window bloom filter, to switch from CAS to Locks for high contention.
 
 ## Flush
 
