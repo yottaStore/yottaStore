@@ -1,11 +1,14 @@
 # Yottapack 
 
-Yottapack is a bandwidth and cpu efficient 
+Yottapack is a bandwidth and cpu efficient
 
 - Size efficient
 - Efficient streaming
 - Query fields
 - Schema or schemaless
+- Row or columnar fields
+- Skip list for fast access
+- Extensible
 
 
 # Format
