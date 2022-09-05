@@ -25,6 +25,7 @@ For each collection and node type (random, linear, compute):
 - `S = N * MAX_LOAD`: Shard factor, greater or equal than `MAX_LOAD`
 - `N`: Number of nodes, power of 2
 
+TODO: handle dynamic S per collection
 
 - Pick regions at config time for each collection
 - Pick `R` walks starting at the root of the tree
@@ -32,6 +33,8 @@ For each collection and node type (random, linear, compute):
 until you reach a node
 - (Optional): Add `log(N)` walks, to pick failover nodes
 - For each node pick `MAX_LOAD` shards
+
+TODO: handle weights and dynamic MAX_LOAD per node
 
 We end up with a pool of `R * S` shards, distributed among `N` nodes
 in `R` regions/zones. We also have a pool of `R * log(N)` nodes as
