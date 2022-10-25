@@ -63,6 +63,7 @@ If with schema
 
 - Char
 - Binary
+- Octal
 - Hex
 - Bool
 - Nil
@@ -75,7 +76,7 @@ If with schema
 - Dynamic
 - Lookup
 - Padding
-- Reserved (9)
+- Reserved (8)
 - Extended (2 bytes) 
 
 Total: 32

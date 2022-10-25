@@ -1,5 +1,6 @@
 # Introduction
-Yotta Store is a storage system aiming at **linear scalability up to the yotta byte range**. 
+Yotta Store is a storage system aiming to **scale out to the yotta byte range** 
+and **scale up to millions of concurrent read and writes per record**. 
 The goal is to have **two orders of magnitude more throughput than DynamoDB**, 
 dollar per dollar, while maintaining a **sub-ms latency**. 
 Check our [benchmarks](docs/10_benchmarks/benchmarks.md)
@@ -13,7 +14,7 @@ Read more in the [docs](docs/README.md)
 
 - Linear scalability, up to 10^9 nodes and 10 yotta bytes of addressable space.
 - Anti fragility, the multi tenant setup increase reliability and availability with load.
-- Self optimizing, thanks to machine learning (insipration from sled)
+- Self configuring and optimizing, thanks to machine learning
 - Strong consistency guarantees, aiming at sub ms latency.
 - Cheap transactions and indexes, at around `o(n)`.
 - Storage decoupled from compute with a serverless architecture.
@@ -24,13 +25,14 @@ Read more in the [docs](docs/README.md)
 
 Yotta Store does not create any new technique, but uses existing ones in a novel combination:
 
-| Problem                          | Solution                                                                            | Description                                                                                                               |
-|----------------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Partitioning and replication     | Rendezvous Hashing                                                                  | A generalization of consistent hashing, for agreeing k <br/>choices in a stable way and with minimal information exchange |
-| Highly available writes          | Compare and swap atomics, version vectors, <br/>conflict-free replicated data types | hhh                                                                                                                       |
-| Transactions                     | Warp algorithm                                                                      | hhh                                                                                                                       |
-| Indexes, queries across keys     | Concurrent linked lists, partitioned indexes                                        | Indices are lazily built by subscribing to key changes                                                                    |
-| Membership and failure detection | Rendezvous gossip                                                                   | Thanks to rendezvous hashing and merkle trees the expected cost is `o(log(n))` deterministically.                         |
+| Problem                          | Solution                        | Description                                                                                                               |
+|----------------------------------|---------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Partitioning and replication     | ReBaR: Rendezvous Based Routing | A generalization of consistent hashing, for agreeing k <br/>choices in a stable way and with minimal information exchange |
+| Highly available read and writes | YottaFS                         | A wait free userspace filesystem, designed around NVMe devices and CRDTs.                                                 |
+| Hot records                      | YottaSelf                       | Hot records can be sandboxed in dedicated partitions.                                                                     |
+| Transactions                     | Modified Warp                   | Thanks to the modified warp algorithm no distributed consensus is needed.                                                 |
+| Indexes, queries across keys     | Partitioned indexes             | Indexes are sharded and lazily built on the same partition seeing the changes.                                            |
+| Membership and failure detection | Gossip agreement protocol       | Thanks to GAP and ReBaR the expected cost is `o(log(n))` deterministically.                                               |
 
 
 ## Inspirations
