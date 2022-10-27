@@ -1,4 +1,9 @@
-# Rendezvous Gossip
+# Gossip agreement protocol
+
+The GAP is the protocol tasked with building the hierarchy tree.
+
+
+# Optimizations
 
 The traditional rendezvous gossip protocol relies on picking a random node 
 for each round of gossip. This is means that unless for lucky choices 
@@ -15,6 +20,8 @@ gossip, with the following improvements:
 Implementation [here]().
 
 ## Small cluster
+
+// TODO: put in rebar
 
 Let's say we have a cluster of 8 nodes and the fanout is 3. 
 The cluster is already at equilibrium, so each node knows about all the other nodes. 

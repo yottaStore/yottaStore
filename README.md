@@ -1,13 +1,13 @@
 # Introduction
-Yotta Store is a storage system aiming to **scale out to the yotta byte range** 
+Yotta Store is a [next generation]() storage system aiming to **scale out to the yotta byte range** 
 and **scale up to millions of concurrent read and writes per record**. 
 The goal is to have **two orders of magnitude more throughput than DynamoDB**, 
 dollar per dollar, while maintaining a **sub-ms latency**. 
 Check our [benchmarks](docs/10_benchmarks/benchmarks.md)
 
-Yotta Store is built on top of a 512 bit distributed machine, with a large word size.
+Yotta Store is built on top of a 512 bit distributed machine, with a 4kib word size.
 We try to design a system which can exploit the capabilities of
-modern hardware and software, like  NVMe disks or the Linux kernel. 
+modern hardware and software, like  NVMe disks or `io_uring`. 
 Read more in the [docs](docs/README.md)
 
 ## Main features

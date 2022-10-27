@@ -10,6 +10,8 @@ Easy:
 
 Powerful:
 - As a customer, I want availability
+- As a customer, I want low latency
 - As a business leader, I want reliability
 - As a business leader, I want transactions
 
+Efficient:

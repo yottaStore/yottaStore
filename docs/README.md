@@ -14,19 +14,19 @@ and implement one himself if he decides so.
 
 ### Chapter 2: Leaderless partitioning and replication
 
-- [Chapter 2.1](03_partitioning/11_rendezvous.md): Rendezvous hashing
-- [Chapter 2.2](03_partitioning/21_gossip.md): Membership detection
-- [Chapter 2.3](03_partitioning/31_hash.md): The best hash function
+- [Chapter 2.1](03_partitioning/11_introduction.md): Introduction
+- [Chapter 2.2](03_partitioning/21_rebar.md): Rendezvous based routing
+- [Chapter 2.3](03_partitioning/31_gap.md): Gossip agreement protocol
 - [Chapter 2.4] Examples
   - [Chapter 2.4.1](03_partitioning/41_examples.md): Partitions and replicas
   - [Chapter 2.4.2](03_partitioning/41_examples.md): Key routing
   - [Chapter 2.4.3](03_partitioning/41_examples.md): Gossip rounds
 
 
-### Chapter 3: File System
+### Chapter 3: YottaFS
 
-- [Chapter 3.1](05_filesystem/nvme.md): The best filesystem
-- [Chapter 3.2](05_filesystem/warp.md): Transaction and indexes
+- [Chapter 3.1](05_yottafs/nvme.md): The best filesystem
+- [Chapter 3.2](05_yottafs/warp.md): Transaction and indexes
 
 ### Chapter 4: Infrastructure
 

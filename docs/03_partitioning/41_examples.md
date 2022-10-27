@@ -1,3 +1,33 @@
+# Failure example
+
+For each hierarchy level there is a maximum number of failures tolerated,
+called **quorum**.
+Let's say a group of 64 disks are attached to 8 nodes in 2 racks:
+if a disk fails, the node will rebalance the load across the remaining
+7 disks without problems.
+If instead more than quorum disks fails in a node, the system will trigger
+a rebalance across the other nodes in the same rack.
+
+Failures are local in the sense that first recovery is attempted locally,
+and then if that fails the recovery is attempted involving only the minimum
+amount of levels in the hierarchy tree.
+
+# Scaling example
+
+Generally using weights with the rendezvous hashing algorithm is not
+a good idea, because changing the weights will cause a rebalance across
+many keys.
+
+Instead, we will use weights to accomodate for future expansion of the cluster,
+which can be planned in advance, or to represent smaller nodes.
+We can create fake zones or nodes and assign them a weight of 0.
+When we start adding new nodes, we can assign a weight of 1 only to new accounts, to allow for gradually scaling up.
+Eventually all the accounts will see a weight of 1, but the rebalancing
+will be way more gradual.
+
+See an example [here](examples.md). For an implementation please see [here]()
+
+
 # Key addressing
 
 Let's say we have a 128 nodes spread across 2 regions and we want
