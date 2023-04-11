@@ -10,8 +10,8 @@ We try to design a system which can exploit the capabilities of
 modern hardware and software, like  NVMe disks or `io_uring`. 
 Read more in the [docs](docs/README.md)
 
-- [Golang implementation](https://github.com/yottaStore/golang) (WIP)
-- [Rust implementation]() (Coming soon)
+- [Golang implementation](https://github.com/yottaStore/golang) (WIP) backed by Cloud Storage
+- [Rust implementation](https://github.com/yottaStore/rust) (WIP) Backed by io_uring NVMe API
 - 
 ## Main features
 
